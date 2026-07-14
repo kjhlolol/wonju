@@ -1,17 +1,237 @@
-<!DOCTYPE HTML>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>바람이 불어오는 곳</title>
-</head>
-<body>
-<h1>시의 예</h1>
-<pre>
-  <span style="color:blue;"><b>바람</b>이 불어오는 곳
-  그곳에 내 <strong>마음</strong>이 머무네
+/* ==========================================================================
+   1. 전역 스타일 및 초기화
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
 
-  <b>바람</b>이 그치는 곳
-  그곳에 내 <strong>꿈</strong>이 쉬어가네</span>
-</pre>
-</body>
-</html>
+body {
+    background-color: #f1f5f9; /* 편안한 연회색 배경 */
+    color: #334155;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   2. 네비게이션 바 (제공해주신 사진 디자인 반영)
+   ========================================================================== */
+.navbar {
+    background-color: #1e3a8a; /* 사진 속 그 깊고 진한 블루 색상 */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around; /* 메뉴 간격을 일정하게 배치 */
+    align-items: center;
+    padding: 0 10px;
+}
+
+.nav-item {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 4px solid transparent; /* 하단 바 효과용 공간 확보 */
+    text-align: center;
+    flex: 1;
+}
+
+/* 메뉴 마우스 오버 및 활성화(Active) 상태 스타일 */
+.nav-item:hover, .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 4px solid #3b82f6; /* 활성화 시 푸른빛 하단 바 채우기 */
+    color: #93c5fd; /* 텍스트 색상도 부드럽게 변경 */
+}
+
+/* ==========================================================================
+   3. 메인 콘텐츠 레이아웃
+   ========================================================================== */
+.main-content {
+    flex: 1;
+    max-width: 850px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* 공통 카드 스타일 */
+.content-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+}
+
+/* ==========================================================================
+   4. HOME 스타일
+   ========================================================================== */
+.home-banner {
+    text-align: center;
+    padding: 60px 20px;
+}
+.home-banner h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+.home-banner p {
+    font-size: 1.2rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   5. 자기소개 스타일
+   ========================================================================== */
+.profile-card {
+    border-top: 8px solid #2563eb;
+}
+.profile-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+.profile-img-container {
+    display: inline-block;
+    margin-bottom: 12px;
+}
+.profile-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #f8fafc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.profile-img:hover { transform: scale(1.05); }
+.img-caption {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 10px;
+    display: block;
+}
+.profile-header h1 {
+    font-size: 1.8rem;
+    color: #1e293b;
+    font-weight: 800;
+}
+.profile-card h2 {
+    font-size: 1.25rem;
+    color: #1e3a8a;
+    border-left: 4px solid #2563eb;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    margin-top: 30px;
+}
+.profile-card h2:first-of-type { margin-top: 0; }
+.intro-text p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #475569;
+    margin-bottom: 8px;
+}
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.info-table th, .info-table td {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+.info-table th {
+    background-color: #eff6ff;
+    color: #1e40af;
+    font-weight: 700;
+    width: 30%;
+    border-right: 1px solid #e2e8f0;
+}
+.info-table tr:not(:last-child) { border-bottom: 1px solid #e2e8f0; }
+.skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.skill-badge {
+    background-color: #f1f5f9;
+    color: #475569;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.deeds-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.deeds-list li { position: relative; padding-left: 24px; font-size: 0.95rem; color: #475569; }
+.deeds-list li::before { content: "🌱"; position: absolute; left: 0; top: 0px; }
+
+/* ==========================================================================
+   6. 작품 & JS (문제집 추천) 스타일
+   ========================================================================== */
+.project-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.project-header h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 800;
+}
+.subject-title {
+    font-size: 1.4rem;
+    color: #1e3a8a;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+.category-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-left: 6px solid #1a4f9c;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.category-card[open] { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
+    list-style: none;
+}
+.card-header::-webkit-details-marker { display: none; }
+.card-header::after { content: '▼'; font-size: 0.8rem; color: #94a3b8; transition: transform 0.3s ease; }
+.category-card[open] .card-header::after { transform: rotate(180deg); color: #1a4f9c; }
+.card-content { padding: 10px 24px 24px 24px; border-top: 1px solid #f1f5f9; background-color: #fcfdfe; }
+.books-grid { display: flex; flex-direction: column; gap: 24px; }
+.book-item { display: flex; gap: 20px; align-items: flex-start; padding-bottom: 24px; border-bottom: 1px dashed #e2e8f0; }
+.book-item:last-child { padding-bottom: 0; border-bottom: none; }
+.book-img-link { flex-shrink: 0; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12); }
+.book-img-link img { width: 120px; height: auto; display: block; }
+.book-info h4 { font-size: 1.2rem; color: #0f172a; margin-bottom: 8px; }
+.book-info ul { list-style-position: inside; color: #475569; font-size: 0.95rem; line-height: 1.6; }
+
+/* 모바일 반응형 조절 */
+@media (max-width: 600px) {
+    .nav-item { font-size: 0.9rem; padding: 15px 10px; }
+    .book-item { flex-direction: column; align-items: center; text-align: center; }
+}
